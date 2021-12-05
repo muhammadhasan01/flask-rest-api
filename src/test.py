@@ -12,11 +12,13 @@ for ID, data in enumerate(datas):
     response = requests.put(BASE + "video/{}".format(ID), data)
     print(response.json())
 
-# input()
-# response = requests.delete(BASE + "video/0")
-# print(response)
 input()
-for i in range(len(data)):
+for ID, data in enumerate(datas):
+    response = requests.patch(BASE + "video/{}".format(ID), {"views": 100})
+    print(response)
+
+input()
+for i in range(len(datas)):
     response = requests.get(BASE + "video/{}".format(i))
     print(i, response.json())
 
