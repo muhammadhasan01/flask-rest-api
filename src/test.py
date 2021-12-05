@@ -12,9 +12,9 @@ for ID, data in enumerate(datas):
     response = requests.put(BASE + "video/{}".format(ID), data)
     print(response.json())
 
-input()
-response = requests.delete(BASE + "video/0")
-print(response)
+# input()
+# response = requests.delete(BASE + "video/0")
+# print(response)
 input()
 for i in range(len(data)):
     response = requests.get(BASE + "video/{}".format(i))
