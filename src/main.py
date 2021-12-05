@@ -9,6 +9,8 @@ class HelloWorld(Resource):
     def get(self):
         return {"data": "Hello World"}
 
+    def post(self):
+        return {"data": "posted"}
 
 api.add_resource(HelloWorld, "/helloworld")
 
