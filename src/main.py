@@ -17,15 +17,26 @@ def handle_non_existing_video(video_id):
         abort(404, message="Video id = {} is not in the data".format(video_id))
 
 
+def handle_existing_video(video_id):
+    if video_id in videos:
+        abort(409, message="Video id = {} already exist".format(video_id))
+
+
 class Video(Resource):
     def get(self, video_id):
         handle_non_existing_video(video_id)
         return videos[video_id]
 
     def put(self, video_id):
+        handle_existing_video(video_id)
         args = video_put_args.parse_args()
         videos[video_id] = args
         return videos[video_id], 201
+
+    def delete(self, video_id):
+        handle_non_existing_video(video_id)
+        del videos[video_id]
+        return "".format(video_id), 204
 
 
 api.add_resource(Video, "/video/<int:video_id>")
