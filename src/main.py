@@ -18,6 +18,9 @@ class VideoModel(db.Model):
         return f"Video(name={self.name}, views={self.views}, likes={self.likes}"
 
 
+# Uncomment this to first create the database
+# db.create_all()
+
 video_put_args = reqparse.RequestParser()
 video_put_args.add_argument("name", type=str, help="Name of the video", required=True)
 video_put_args.add_argument("views", type=int, help="Views of the video", required=True)
@@ -75,7 +78,9 @@ class Video(Resource):
         return result, 204
 
     def delete(self, video_id):
-        return {}, 204
+        result = VideoModel.query.filter_by(id=video_id).delete()
+        db.session.commit()
+        return result, 204
 
 
 api.add_resource(Video, "/video/<int:video_id>")
