@@ -77,13 +77,21 @@ class Video(Resource):
 
         return result, 204
 
-    def delete(self, video_id):
+    @staticmethod
+    def delete(video_id):
         result = VideoModel.query.filter_by(id=video_id).delete()
         db.session.commit()
         return result, 204
 
 
+class HelloWorld(Resource):
+    @staticmethod
+    def get():
+        return {"data": "Hello World"}
+
+
+api.add_resource(HelloWorld, "/helloworld")
 api.add_resource(Video, "/video/<int:video_id>")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
